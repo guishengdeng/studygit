@@ -49,15 +49,6 @@
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <!--SpringSecurity配置-->
-    <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
     <!--首页：当用户通过IP地址和端口号(或加工程名)，进行访问时，要显示的页面-->
     <welcome-file-list>
         <welcome-file>/WEB-INF/page/login.jsp</welcome-file>
