@@ -78,31 +78,24 @@
     </bean>
    <!--基于配置文件。测试Spring aop前置增强，后置增强, start-->
     <context:component-scan base-package="com.spring.jpa.test"/>
- <!--切面（advisor/aspect==advice(增强)+pointcut(切点)）-->
-    <!--配置一个切面-->
-    <bean id="greetingAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
-        <property name="advice" ref="greetingAroundAdvice"></property>
-        <property name="pattern" value="com.spring.jpa.test.HelloImpl.good.*"></property>
-    </bean>
-    <!--配置一个代理-->
+
     <bean id="greetingProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
-        <property name="target" ref="helloImpl"></property>
-        <property name="interceptorNames" value="greetingAdvisor"></property>
-        <property name="proxyTargetClass" value="true"></property>
+        <!-- 需要代理的接口-->
+         <property name="interfaces" value="com.spring.jpa.test.IApologize"></property>
+        <!--代理接口的实现类-->
+         <property name="target" ref="helloImpl"></property>
+        <!--拦截器名 （也就是增强类的名称）-->
+         <property name="interceptorNames" >
+             <!--如果一个增强类，就像上边那样配置，多个就像下边这样配置-->
+             <list>
+                <!-- <value>greetingThrowAdvice</value>
+                 <value>greetingAroundAdvice</value>-->
+                 <value>greetingIntroAdvice</value>
+             </list>
+         </property>
+         <!---->
+         <property name="proxyTargetClass" value="true"></property>
     </bean>
-    <!--切面-->
-     <bean id="greetAspect" class="com.spring.jpa.test.aspect.GreetingAspect"></bean>
+    <!--<bean id="hello" class="com.spring.jpa.test.HelloImpl"></bean>-->
 
-     <bean id="helloImpl" class="com.spring.jpa.test.HelloImpl"></bean>
-    <aop:config>
-        <aop:aspect ref="greetAspect">
-            <!--切点：就是拦截匹配的条件-->
-            <aop:pointcut id="helloPointCut" expression="execution(* com.spring.jpa.test.HelloImpl.*(..))"></aop:pointcut>
-            <!--环绕增强-->
-          <!--  <aop:around method="around" pointcut-ref="helloPointCut"></aop:around>-->
-            <!--前置增强-->
-            <aop:before method="before" pointcut-ref="helloPointCut"></aop:before>
-        </aop:aspect>
-
-    </aop:config>
 </beans>

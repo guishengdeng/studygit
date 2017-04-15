@@ -20,4 +20,6 @@ public interface BookResitory extends JpaRepository<Book,Long> {
     //调用父级接口中的save()方法实现修改或增加操作CrudRepository接口
 
     //调用父级接口中的delete()方法实现删除操作CrudRepository接口
+
+    Book findByBookId(Long id);
 }

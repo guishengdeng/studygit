@@ -37,7 +37,13 @@ public class BookService {
         return book;
 
     }
-
+    /**
+     * 根据id,删除书籍
+     * @param id
+     */
+    public void deleteBook(Long id){
+        bookResitory.delete(id);
+    }
     /**
      * 添加或者修改操作,底层调用得是父级接口里的方法
      * @param book
@@ -47,11 +53,5 @@ public class BookService {
         bookResitory.save(book);
     }
 
-    /**
-     * 根据id,删除书籍
-     * @param id
-     */
-    public void deleteBook(Long id){
-         bookResitory.delete(id);
-    }
+
 }
